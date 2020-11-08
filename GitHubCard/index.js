@@ -1,8 +1,17 @@
 /*
+
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+import axios from 'axios';
+
+axios.get('https://api.github.com/users/lexdechris23')
+  .then(res => {
+    document.getElementsByClassName('cards')[0].appendChild(myFunction(res.data))
+  })
+  .catch(err => console.log('error'))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,7 +25,7 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+const entryPoint = document.querySelector('.cards');
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +37,41 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+
+const myFunction = (obj) => {
+  const myCard = document.createElement('div');
+  myCard.classList.add('card');
+  let myCardInnerHtml = `<img src = "${obj['avatar_url']}"/>
+  <div class="card-info">
+    <h3 class="name">${obj.name}</h3>
+    <p class="username">${obj.login}</p>
+    <p>Location: ${obj.location}</p>
+    <p>Profile:
+      <a href="${obj['html_url']}">Link to profile</a>
+    </p>
+    <p>Followers: ${obj.followers}</p>
+    <p>Following: ${obj.following}</p>
+    <p>Bio: ${obj.bio}</p>
+  </div>`
+  myCard.innerHTML = myCardInnerHtml
+  return myCard
+}
+
+
+function createCard(name) {
+  axios.get('https://api.github.com/users/'+name)
+  .then(res => {
+    document.getElementsByClassName('cards')[0].appendChild(myFunction(res.data))
+  })
+  .catch(err => console.log('damn'))
+}
+followersArray.forEach(name => createCard(name))
+
+
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
