@@ -8,10 +8,10 @@
 import axios from 'axios';
 
 axios.get('https://api.github.com/users/lexdechris23')
-  .then(res => {
-    document.getElementsByClassName('cards')[0].appendChild(myFunction(res.data))
+  .then(response => {
+    document.querySelector('.cards').append(myFunction(response.data))
   })
-  .catch(err => console.log('error'))
+  .catch(error => console.log(error))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -37,7 +37,7 @@ const entryPoint = document.querySelector('.cards');
     user, and adding that card to the DOM.
 */
 
-const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell", "yihui", "dmalan", "chjj", "mdo", "ai", "chris", "bob", "jeff", "roger", "muan", "jskeet", "Caged", "dlew", "mattn"];
 
 
 const myFunction = (obj) => {
@@ -62,10 +62,10 @@ const myFunction = (obj) => {
 
 function createCard(name) {
   axios.get('https://api.github.com/users/'+name)
-  .then(res => {
-    document.getElementsByClassName('cards')[0].appendChild(myFunction(res.data))
+  .then(response => {
+    document.getElementsByClassName('cards')[0].appendChild(myFunction(response.data))
   })
-  .catch(err => console.log('damn'))
+  .catch(error => console.log(error))
 }
 followersArray.forEach(name => createCard(name))
 
